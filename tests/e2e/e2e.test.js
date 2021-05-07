@@ -2,44 +2,50 @@
 import spectron from 'spectron'
 import { testWithSpectron } from 'vue-cli-plugin-electron-builder'
 
+let spectronApp;
 
-// Copied from https://nklayman.github.io/vue-cli-plugin-electron-builder/guide/testingAndDebugging.html#testing
-jest.setTimeout(50000)
-test('Window Loads Properly', async () => {
-  // Wait for dev server to start
-  const { app, stopServe } = await testWithSpectron(spectron)
-  const win = app.browserWindow
-  const client = app.client
+beforeAll(async () => {
+  const { app, stopServe } = await testWithSpectron(spectron, {
+    forceDev: true
+  });
+  spectronApp = { app, stopServe };
+});
 
-  // Window was created
-  expect(await client.getWindowCount()).toBe(1)
-  // It is not minimized
-  expect(await win.isMinimized()).toBe(false)
-  // Window is visible
-  expect(await win.isVisible()).toBe(true)
+afterAll(async () => {
+  await spectronApp.stopServe();
+}, 5000);
+
+// Test with Spectron
+test("Window loads properly", async () => {
+  const { app } = spectronApp;
+  const win = app.browserWindow;
+  // Window is up and running
+  expect(await app.isRunning()).toBe(true);
+  expect(await app.client.getWindowCount()).toBe(1);
+  expect(await win.isMinimized()).toBe(false);
+  expect(await win.isVisible()).toBe(true);
+
   // Size is correct
-  const { width, height } = await win.getBounds()
-  expect(width).toBeGreaterThan(0)
-  expect(height).toBeGreaterThan(0)
+  const { width, height } = await win.getBounds();
+  expect(width).toBeGreaterThan(0);
+  expect(height).toBeGreaterThan(0);
+
   // App is loaded properly
   expect(
     /Welcome to Your Vue\.js (\+ TypeScript )?App/.test(
       await (await app.client.$('#app')).getHTML()
     )
   ).toBe(true)
+});
 
-  await stopServe()
-})
+// Test with Puppeteer
+test('should be titled "About"', async () => {
+  await page.goto('https://digitalregulation.org');
+  await page.click('.menu-item-702');
 
-// Custom added
-test('Installed CLI Plugins found', async () => {
-  // Wait for dev server to start
-  const { app, stopServe } = await testWithSpectron(spectron)
+  await page.waitForSelector('h1');
 
-  const h3Heading = await (await app.client.$('h3')).getText()
+  const html = await page.$eval('h1', el => el.innerHTML);
 
-  expect(h3Heading.trim()).toBe('Installed CLI Plugins');
-
-
-  await stopServe()
-})
+  expect(html.trim()).toBe('About');
+}, 15000);
