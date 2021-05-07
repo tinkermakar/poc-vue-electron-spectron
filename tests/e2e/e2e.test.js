@@ -48,4 +48,4 @@ test('should be titled "About"', async () => {
   const html = await page.$eval('h1', el => el.innerHTML);
 
   expect(html.trim()).toBe('About');
-}, 15000);
+}, 50000);
