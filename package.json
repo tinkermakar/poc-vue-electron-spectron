@@ -16,12 +16,12 @@
   "main": "background.js",
   "dependencies": {
     "core-js": "^3.6.5",
-    "jest-puppeteer": "^5.0.3",
-    "puppeteer": "^9.1.1",
-    "spectron": "^11.0.0",
     "vue": "^3.0.0"
   },
   "devDependencies": {
+    "jest-puppeteer": "^5.0.3",
+    "puppeteer": "^9.1.1",
+    "spectron": "^11.1.0",
     "@vue/cli-plugin-babel": "~4.5.0",
     "@vue/cli-plugin-eslint": "~4.5.0",
     "@vue/cli-service": "~4.5.0",
