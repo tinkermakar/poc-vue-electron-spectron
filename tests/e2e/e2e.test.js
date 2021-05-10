@@ -4,11 +4,8 @@ import { testWithSpectron } from 'vue-cli-plugin-electron-builder'
 let spectronApp;
 
 beforeAll(async () => {
-  const { app, stopServe } = await testWithSpectron(spectron, {
-    forceDev: true
-  });
-  spectronApp = { app, stopServe };
-});
+  spectronApp = await testWithSpectron(spectron, { forceDev: true });
+}, 20000);
 
 afterAll(async () => {
   await spectronApp.stopServe();
@@ -42,4 +39,4 @@ test('should be titled "Example Domain"', async () => {
   await page.goto('https://example.com');
   const html = await page.$eval('h1', el => el.innerHTML);
   expect(html.trim()).toBe('Example Domain');
-}, 50000);
+});
