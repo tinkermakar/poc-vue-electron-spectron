@@ -5,6 +5,16 @@
 npm install
 ```
 
+## Run e2e tests with Spectron and Puppeteer simultaneously
+```
+npm test
+```
+
+## Run e2e tests headless
+```
+npm run test:headless
+```
+
 ### Compiles and hot-reloads for development
 ```
 npm run serve
