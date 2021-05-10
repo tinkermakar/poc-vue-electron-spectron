@@ -38,13 +38,8 @@ test("Window loads properly", async () => {
 });
 
 // Test with Puppeteer
-test('should be titled "About"', async () => {
-  await page.goto('https://digitalregulation.org');
-  await page.click('.menu-item-702');
-
-  await page.waitForSelector('h1');
-
+test('should be titled "Example Domain"', async () => {
+  await page.goto('https://example.com');
   const html = await page.$eval('h1', el => el.innerHTML);
-
-  expect(html.trim()).toBe('About');
+  expect(html.trim()).toBe('Example Domain');
 }, 50000);
