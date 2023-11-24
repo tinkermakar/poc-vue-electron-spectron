@@ -1,4 +1,4 @@
-# sample-vue-electron-spectron
+# Example electron app with spectron for UI tests
 
 ## Project setup
 ```
@@ -15,20 +15,4 @@ npm test
 npm run test:headless
 ```
 
-### Compiles and hot-reloads for development
-```
-npm run serve
-```
-
-### Compiles and minifies for production
-```
-npm run build
-```
-
-### Lints and fixes files
-```
-npm run lint
-```
-
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
+P.S. Spectron has been deprecated not longer after I had made this POC for work. RIP Spectron
